@@ -1,7 +1,7 @@
 #お釣りの計算
 
 import sys
-xxx
+
 input_price = input('insert: ')
 if not input_price.isdecimal():
     print('整数を入力してください')
