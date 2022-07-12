@@ -1,7 +1,11 @@
-age = input("Enter your age:")
-int_age = int(age)
-if int_age < 21:
-    print("You are young!")
-else:
-    print("Wow, you are old!")
-    
+def even_odd():
+    n = input("type a number:")
+    n = int(n)
+    if n % 2 == 0:
+        print("n is even.")
+    else:
+        print("n is odd.")
+
+even_odd()
+even_odd()
+even_odd()
