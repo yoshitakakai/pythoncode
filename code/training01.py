@@ -1,11 +1,5 @@
-def even_odd():
-    n = input("type a number:")
-    n = int(n)
-    if n % 2 == 0:
-        print("n is even.")
-    else:
-        print("n is odd.")
+def add_it(x, y=10):
+    return x ** 2 + y
 
-even_odd()
-even_odd()
-even_odd()
+result = add_it(2)
+print(result)
