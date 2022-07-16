@@ -1,5 +1,8 @@
-def add_it(x, y=10):
-    return x ** 2 + y
-
-result = add_it(2)
-print(result)
+try:
+    a = input("type a number:")
+    b = input("type another:")
+    a = int(a)
+    b = int(b)
+    print(a / b)
+except (ZeroDivisionError, ValueError):
+    print("Invalid input.")
