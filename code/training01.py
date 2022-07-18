@@ -6,5 +6,8 @@ class Shape:
     def print_size(self):
         print("{} by {}".format(self.width, self.len))
 
-my_shape = Shape(20, 25)
-my_shape.print_size()
+class Square(Shape):
+    pass
+
+a_square = Square(20, 20)
+a_square.print_size()
