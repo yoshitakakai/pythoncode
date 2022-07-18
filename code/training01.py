@@ -1,11 +1,10 @@
-class Data:
-    def __init__(self):
-        self.nums = [1, 2, 3, 4, 5]
+class Shape:
+    def __init__(self, w, l):
+        self.width = w
+        self.len = l
 
-    def change_data(self, index, n):
-        self.nums[index] = n
+    def print_size(self):
+        print("{} by {}".format(self.width, self.len))
 
-data_two = Data()
-data_two.change_data(3, 100)
-print(data_two.nums)
-
+my_shape = Shape(20, 25)
+my_shape.print_size()
