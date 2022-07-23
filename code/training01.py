@@ -1,6 +1,6 @@
-def f(x):
-    return x * 2
-
-f(2)
-result = f(2)
-print(result)
+fruit = ["Apple", "Orange"]
+fruit.append("Pear")
+print(fruit)
+print(fruit[2])
+fruit[1] = 2.3
+print(fruit[1])
