@@ -48,3 +48,7 @@ people = {"g. Bluth IT": "A. Development",
           "Barny": "HIMYM",
           "Dennis": "Always Sunny",
           }
+
+#イテラブル　繰返し可能
+#ミュータブル　変更可能
+#ミュータブル　変更不可能

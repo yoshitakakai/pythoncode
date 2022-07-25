@@ -1,8 +1,11 @@
-colors = ["purple", "orange", "green"]
+songs = {"1": "fun",
+         "2": "blue",
+         "3": "me"
+         }
 
-guess = input("何色でしょう?(入力してください):")
-
-if guess in colors:
-    print("当たり!")
+n = input("数字を入力してください:")
+if n in songs:
+    song = songs[n]
+    print(song)
 else:
-    print("ハズレ!")
+    print("見つかりません")
