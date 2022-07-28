@@ -6,5 +6,5 @@ def liner_search(data, value):
             return i
     return -1
 
-data = [50, 30, 90, 10, 20, 70, 60, 40, 80]
-print(liner_search(data, 40))
+data = ["red", "green", "yellow", "blue", "black", "white"]
+print(liner_search(data, "blue"))
