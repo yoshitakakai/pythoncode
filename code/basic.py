@@ -44,10 +44,13 @@ coms = ("A. Development", "Friends", "Always Sunny")
 shows = ["GOT", "Narcos", "Vice"]
 
 #辞書
+#キーでバリューを検索して出力
 people = {"g. Bluth IT": "A. Development",
           "Barny": "HIMYM",
           "Dennis": "Always Sunny",
           }
+
+print(peple["Barny"])
 
 #イテラブル　繰返し可能
 #ミュータブル　変更可能

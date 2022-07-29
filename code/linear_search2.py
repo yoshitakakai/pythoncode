@@ -1,5 +1,3 @@
-#線形探索を行う関数を定義
-
 def liner_search(data, value):
     for i in range(len(data)):
         if data[i] == value:
