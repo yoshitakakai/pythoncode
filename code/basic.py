@@ -55,3 +55,64 @@ print(peple["Barny"])
 #イテラブル　繰返し可能
 #ミュータブル　変更可能
 #ミュータブル　変更不可能
+
+#文字列 大文字変換
+.upper()
+
+#文字列 小文字変換
+.lower()
+
+#文字列 最初の文字だけ大文字変換
+.capitalize()
+
+#書式化
+"{}が{}で{}をした。".format("", "", "")
+
+#分割
+"xxx,yyyy".split(",")
+
+#結合
+text = "abc"
+n = "+".join(text)
+
+#文字列の最初と最後の空白を取り除く
+.strip()
+
+#置き換え xからyへ置き換え
+.replace("x", "y")
+
+#例外処理
+words = ["The", "xxxxx", "Entertainment"]
+one = " ".join(words)
+try:
+    print(one.index("mi"))
+except ValueError:
+    print("見つかりません")
+
+#包含している
+print("The" in one)
+#包含していない
+print("The" not in one)
+
+#エスケープ文字
+print("彼女は\"そうだね\"と言った")
+彼女は"そうだね"と言った
+
+#改行
+print("彼女は\nそうだね\nと言った")
+彼女は
+そうだね
+と言った
+
+#スライス
+#全出力
+fruits[:]
+#先頭から
+fruits[:3]
+#一番後ろまで
+fruits[2:]
+#途中スライス
+fruits[1:3]
+
+
+#

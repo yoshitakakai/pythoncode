@@ -1,13 +1,3 @@
-ny = {
-    "座標": (4.8573),
-    "セレブ": [
-        "ウッディ",
-        "ジェイ",
-        "ケヴィン",
-    ],
-    "事実": {
-        "州": "NY",
-        "国": "US",
-    }
-}
-print(ny["事実"])
+fruits = ["apple", "grape", "lemon", "kiwi", "banana"]
+print(fruits[:])
+
