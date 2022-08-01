@@ -54,7 +54,7 @@ print(peple["Barny"])
 
 #イテラブル　繰返し可能
 #ミュータブル　変更可能
-#ミュータブル　変更不可能
+#イミュータブル　変更不可能
 
 #文字列 大文字変換
 .upper()
@@ -114,5 +114,9 @@ fruits[2:]
 #途中スライス
 fruits[1:3]
 
+#showがshowsに含まれていたら
+if show in shows:
 
-#
+#showをshowsの中に渡す
+for show in shows
+
