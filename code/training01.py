@@ -1,4 +1,10 @@
+
 def f():
-    z = 1 + 1
-reslut = f()
-print(reslut)
+    x = 1
+    y = 2
+    z = 3
+    print(x)
+    print(y)
+    print(z)
+
+f()
