@@ -1,8 +1,17 @@
-try:
-    a = input("type a number:")
-    b = input("type another:")
-    a = int(a)
-    b = int(b)
-    print(a/b)
-except (ZeroDivisionError, ValueError):
-    print("Invalid input.")
+def even_odd():
+    n = input("type a number:")
+    n = int(n)
+    if n % 2 == 0:
+        print("even")
+    else:
+        print("odd")
+
+even_odd()
+even_odd()
+even_odd()
+
+
+
+
+
+
