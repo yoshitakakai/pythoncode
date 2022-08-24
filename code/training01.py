@@ -1,17 +1,2 @@
-def even_odd():
-    n = input("type a number:")
-    n = int(n)
-    if n % 2 == 0:
-        print("even")
-    else:
-        print("odd")
-
-even_odd()
-even_odd()
-even_odd()
-
-
-
-
-
-
+sampleText = "今日は外が良い天気だから、散歩にでも行こうかな。"
+print(sampleText[0:5])
