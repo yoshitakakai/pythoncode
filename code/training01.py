@@ -1,6 +1,11 @@
-import csv
+class CarPersonal:
+    def __init__(self, d, m, c):
+        self.dealer = d
+        self.model = m
+        self.color = c
 
-with open("fruitslist.csv", "r") as filedata:
-    fruitslist = csv.reader(filedata, delimiter=",")
-    for output in fruitslist:
-        print(",".join(output))
+    def carselect(self):
+        print("あなたへおすすめの車は\n{}の{}で、色は{}です。".format(self.dealer, self.model, self.color))
+
+data = CarPersonal("HONDA", "N-BOX", "Black")
+data.carselect()
