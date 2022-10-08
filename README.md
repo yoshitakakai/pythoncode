@@ -1,7 +1,3 @@
-# pythoncode
-プログラミングの記録
-
-git add ファイル名  # cd pythoncode のあとに実行
-git commit -m "コメント" 
-git diff ブランチ名 
-git pull
+# Pythonによるプログラミング記録
+## Yoshitaka Kai
+プログラミングをしたり、ライター業や盆栽業もやってます。
