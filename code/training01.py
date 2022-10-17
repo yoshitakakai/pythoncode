@@ -1,11 +1,13 @@
-class CarPersonal:
-    def __init__(self, d, m, c):
-        self.dealer = d
-        self.model = m
-        self.color = c
+# ポリモーフィズムなし
+shapelist = [triangletype, circletype]
+for shape in shapelist:
+# このループによってデータ型の確認を行っている
+    if isinstance(shape, Triangle):
+        shape.drew_triangle()
+    if isinstance(shape.Circle):
+        shape.draw_circle()
 
-    def carselect(self):
-        print("あなたへおすすめの車は\n{}の{}で、色は{}です。".format(self.dealer, self.model, self.color))
-
-data = CarPersonal("HONDA", "N-BOX", "Black")
-data.carselect()
+#ポリモーフィズムを実装
+shapelist = [triangletype, circletype]
+for shape in shapelist:
+    shape.draw()
