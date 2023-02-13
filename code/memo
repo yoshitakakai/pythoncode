@@ -1,0 +1,847 @@
+プログラミング
+
+問題解決：An error occurred (AuthFailure) when calling the DescribeVpcs operation
+* AWS
+An error occurred (AuthFailure) when calling the DescribeVpcs operation: AWS was not able to validate the provided access credentials
+
+（describeVpcsオペレーションを呼び出すときにエラーが発生しました（AuthFailure）：AWSは提供されたアクセスクレデンシャルを検証できませんでした）
+awsを使っていてこんなエラーが出て困っていた。調べてみると、どうやらユーザー認証ができない状態であることが分かり、IAMを設定後、認証設定を行うことでこの問題を解決することができた。
+
+１、ターミナルもしくはPowerShellを開いて、aws configureを実行する
+２、AWS Access Key、AWS Secret Access Keyが表示されたら、IAM設定時の最後のページに記載されているキーを入力
+３、Default region nameが表示されたら、us-east-1（設定するリージョン）を入力
+４、Default output formatが表示されたら、jsonと入力する
+
+この設定後、スクリプトの実行やデプロイ作業を進めると問題なく実行できた。
+
+
+
+
+AWS仮想マシンに接続する方法（LinuxとmacOS）
+* AWS
+* プログラミング
+
+※ osにはUbuntu Serverが選択されている仮定しています。
+１、AWSマネジメントコンソール最上部のねびゲーションバーより「サービス」をクリックし、ES2を選択。EC2ダッシュボードの「インスタンス」を選択し、仮想マシンのオーバービューの表示する
+
+２、詳細を表示とアクションの実行を開始する仮想マシンを選択する
+
+３、「接続」をクリックすると、仮想マシンに接続するための手順がポップアップウィンドウに表示される。ここで仮想マシンのパブリックDNSを確認し「閉じる」をクリック
+
+４、「インスタンスへの接続」画面に表示されている通り、SSHを機能させるためのキーが公開されていないことを示すために、ターミナルで次のコマンドを入力する。キーファイルはPC内で保存されているキーファイルに置き換える
+chmod 400 キーファイルのパス.pem
+
+５、次にターミナルで次のコマンドを入力する。パブリックDNSは「インスタンスへの接続」画面で確認したものに置き換える
+ssh -i キーファイルのパス.pem ubuntu@パブリックDNS
+
+６、新しいホストの信頼性に関するセキュリティ警告が表示されたら、yesと入力して仮想マシンに接続する。接続に成功していると以下のようにターミナル内で表示が切り替わる
+ubuntu@ip-xxx-xx-xx-xxx:~$
+
+
+
+PC内のファイルパスをコマンドラインなどで簡単に入力したい、もしくはファイルパスを調べたいとき
+* プログラミング
+
+PC内のファイルをコピーするとPATHをコピーできる。
+コピーしたPATHをコマンドラインなどにペーストすれば、PC内のファイルPATHを簡単に入力できる。
+
+
+フォークしたリポジトリから変更内容を元のリポジトリにpull requestするまでの流れ
+* Git
+* GitHub
+* プログラミング
+フォークしたリポジトリページより、内容が更新されているメッセージ文の右側にあるcontoributeボタンをクリック
+次にOpen pull requestボタンをクリック
+内容を確認して、緑色のCreate pull requestボタンをクリックする
+タイトルとコメントを入力したら、緑色のCreate pull requestボタンをクリックする
+するとプルリクエストは番号付きで元のリポジトリに送られる。
+
+
+
+ローカルリポジトリからGitHub上のリポジトリにmasterブランチを送る際のメモ
+* GitHub
+* プログラミング
+
+git remote add github https://github.com/yourname/filename.git
+git push -u remotename master
+このコマンドのあと、GitHubのユーザーネームとパスワードを入力するよう指示されるが、ログイン用のパスワードは以下のように使用できないようになっている。
+Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+
+パスワード認証のサポートは2021年8月13日に削除されました。代わりに、個人用アクセストークンを使用してください。
+つまり、個人用アクセストークンを作る必要がある。トークンの作成方法は以下のリンクで確認できる。
+https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
+
+
+プログラミング/GitHubの公開鍵の登録での躓き
+* GitHub
+* プログラミング
+
+
+GitHubで公開鍵を登録しようとするもずっと
+Key is invalid. You must supply a key in OpenSSH public key format
+というエラーが出ていた。なんでかなぁと思っていたら、ただ単純にid_ras.pubの内容を全て含めていないのが問題なだけだった。
+GitHubの公開鍵の登録でKeyの部分にコピペする内容は、公開鍵の部分だけではなく、ssh-rsaからメールアドレスの部分までを含む。
+なんで失敗していたのかというと、公開鍵の部分だけをコピペしていたという凡ミスだった…
+
+
+プログラミング/PyCharmのフォントサイズを変更したい
+* PyCharm
+* プログラミング
+
+PyCharmメニューからperformance→Editor→Font
+でフォントサイズの変更ができる。
+
+
+
+プログラミング/Django/Gmailの送信メールサーバーからメールを送信するための設定
+* Django
+* プログラミング
+
+setting.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = '########@gmail.com' #メールの送信元
+EMAIL_HOST = 'smtp.gmail.com' #GmailのSMTPサーバー
+EMAIL_PORT = 587 #Gmailのアドレス
+EMAIL_HOST_USER = '########@gmail.com' #Gmailのアドレス
+EMAIL_HOST_PASSWORD ='###########'　#生成されたパスワードを入力
+EMAIL_USE_TLS = True #SMTPサーバーとのTLS接続
+
+Googleアカウントのセキュリティ→2段階認証プロセス→有効にする
+→セキュリティ→アプリパスワード→「アプリを選択」で「メール」を選択
+→「デバイスを選択」でデバイスを選択→生成
+→生成されたアプリパスワードをsetting.pyで使用する。
+
+
+
+プログラミング/Django/認証アプリのバグ
+* Django
+* プログラミング
+
+バグというほどの大きなものでもないのだけれど、サインアップ後にログイン認証しようとすると、何度も何度も
+ユーザー名とパスワードが一致しません。
+ってエラーが出るもんだから、なんだろうかと思って調べ続けていたら、まぁこれが単なる打ちミスというだけのことだった。そんなもんだよなぁと最近こういうバグにも慣れてきた気がする。
+{% load static %}
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Log in</title>
+
+    <!-- Bootstrap core CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+      <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href={% static "css/signin.css" %} rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+      <main class="form-signin">
+          {% if form.errors %}
+              <p style="color: red">ユーザー名とパスワードが一致しません。</p>
+          {% endif %}
+
+      <form method="post">
+          {% csrf_token %}
+          <img class="mb-4" src={% static "img/bootstrap-logo.svg" %} alt="" width="72" height="57">
+          <h1 class="h3 mb-3 fw-normal">Please Log in</h1>
+          <label for="Username" class="visually-hidden">User name</label>
+          <input type="text"
+                 name="username"
+                 id="id_username"
+                 maxlength="150"
+                 autocapitalize="none"
+                 autocomplete="username"
+                 class="form-control"
+                 placeholder="ユーザー名"
+                 required autofocus>
+          <label for="Password" class="visually-hidden">Password</label>
+          <input type="password"
+
+                 name="password" #ここをusernameと打ち込んでいた
+
+                 id="id_password"
+                 autocomplete="current-password"
+                 class="form-control"
+                 placeholder="パスワード" required>
+
+          <input class="w-100 btn btn-lg btn-primary" type="submit" value="ログイン">
+          <br><br>
+          <a href="#">パスワードを忘れましたか？</a></p>
+          <input type="hidden"
+                 name="next"
+                 value="{% url 'photo:index' %}">
+      </form>
+      </main>
+  </body>
+</html>
+
+
+  </body>
+</html>
+
+
+
+プログラミング/Mac OS/改行コード
+* プログラミング
+
+参考書を見ているとたまに
+¥n
+が使われていることがある。これ改行コードなんだけど、Macでやるとうまくいかなくて、そんなときには
+\n
+で打ってみるとうまくいく。
+今更ながらド忘れしていたのでメモしとこう。
+
+
+
+プログラミング/Django/管理サイトでアプリを操作するため、admin.pyでモデルの登録
+* Django
+* プログラミング
+
+アプリケーション内のadmin.py
+from django.contrib import admin
+from .models import xxx
+
+admin.site.register(xxx)
+
+# xxxの部分にmodels.pyのclass名を入力 例）Blog
+もしmodels.pyをデータベースに反映させていなければ、makemigrationsとmigrateコマンドを行えば、Djangoの管理サイトでアプリを操作できるようになる。
+
+
+
+プログラミング/HTML/videoタグ参考リンク
+* プログラミング
+今回Djangoでvideoタグを使うにあたって、色々と調べているうちに分かったことがあるので、この際メモっておくことにしました。
+
+
+【videoタグ】HTMLで動画を埋め込む方法を徹底まとめ
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W74JGKP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+WEBデザイナー・プログラマの初学者向けの独学学習サイトです。
+
+￼
+HTMLでvideo要素で動画が自動再生されない原因と対処法を現役エンジニアが解説【初心者向け】
+HTMLでvideo要素で動画が自動再生されない原因と対処法について、テックアカデミーのメンター（現役エンジニア）が実際のコードを使用して初心者向けに解説します。 そもそも、HTMLの記述方法がわからない場合は、HTMLの書き方について解説した記事を読むとさらに理解が深まります。   田島悠介 今回は、HTMLに関する内容だね！ 大石ゆかり どういう内容でしょうか？ 田島悠介 video要素で動画が自動再生されない原因と対処法について詳しく説明していくね！ 大石ゆかり お願いします！   目次 video要素について video要素の注意点と問題点 自動再生されない原因と対 … 続きを読む
+
+￼
+iPhone等のスマホで<video>タグの動画が表示されない場合の対処法
+HTML5では<video>タグを使うことで、WEBサイトに動画を埋め込むことが出来ます。ただ、記述方法に気を付けないと、WindowsやAndroidスマホでは表示されても、iPhoneやiPadなどでは動 … 続きを読む
+
+
+
+プログラミング/Django/フォームのinputやselect要素にCSSのclass名を指定する
+* Django
+* プログラミング
+
+forms.pyにて入力
+
+widgetの変更による処理
+from django import forms
+
+class ContactForm(forms.Form):
+    CATEGORIES = (
+        ('1', 'お仕事の依頼'),
+        ('2', 'サイト内容に関するお問い合わせ'),
+    )
+
+    name = forms.CharField(
+        label='お名前', max_length=50,
+        required=False, help_text='※任意',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        label='メールアドレス', required=False, help_text='※任意',
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+    text = forms.CharField(label='お問い合わせ内容', widget=forms.Textarea(attrs={'class': 'form-control'}),)
+
+    category = forms.ChoiceField(label='カテゴリ', choices=CATEGORIES, widget=forms.RadioSelect(attrs={'class': 'form-control'}))
+
+
+__init__メソッドの上書きでの処理
+from django import forms
+
+class ContactForm(forms.Form):
+    CATEGORIES = (
+        ('1', 'お仕事の依頼'),
+        ('2', 'サイト内容に関するお問い合わせ'),
+    )
+
+    name = forms.CharField(
+        label='お名前', max_length=50,
+        required=False, help_text='※任意',
+    )
+    email = forms.EmailField(
+        label='メールアドレス', required=False, help_text='※任意',
+    )
+    text = forms.CharField(label='お問い合わせ内容',)
+
+    category = forms.ChoiceField(label='カテゴリ', choices=CATEGORIES,)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+label要素を表示しなうようにする場合
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['placeholder'] = field.label
+
+
+
+プログラミング/Django/フォームのカスタマイズ
+* Django
+* プログラミング
+
+
+ラジオボタン
+
+category = forms.ChoiceField(label='カテゴリ', choices=CATEGORIES, widget=forms.RadioSelect)
+
+複数選択
+category = forms.MultipleChoiceField(label='カテゴリ', choices=CATEGORIES)
+
+チェックボックス
+category = forms.MultipleChoiceField(label='カテゴリ', choices=CATEGORIES, widget=forms.CheckboxSelectMultiple)
+
+
+
+プログラミング/Django/フォームテンプレートを他テンプレートに共通化する
+* Django
+* プログラミング
+
+フォーム部分のテンプレートファイルを作成（例 form.html）
+{{ form.non_field_errors }}
+{% for field in form %}
+    <div class="field">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}
+            <span class="helptext">{{ field.help_text }}</span>
+        {% endif %}
+        {{ field.errors }}
+    </div>
+{% endfor %}
+
+
+フォームを呼び出すコードを縦ンプレートファイル内に設置
+{% block content %}
+    <h1>お問い合わせ</h1>
+    <form action="" method="POST">
+        {% include 'contactform/form.html' %}
+#contactform部分はテンプレートディレクトリ名、form.html部分は他テンプレートファイル名を入力
+        {% csrf_token %}
+        <button type="submit">送信</button>
+    </form>
+{% endblock %}
+
+
+
+プログラミング/Django/フォームの表示
+* Django
+* プログラミング
+
+
+テンプレートファイルで入力
+
+form.as_ul
+{% block content %}
+    <h1>お問い合わせ</h1>
+    <form action="" method="POST">
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        {% csrf_token %}
+        <button type="submit">送信</button>
+    </form>
+{% endblock %}
+
+
+
+プログラミング/Django/404ページを表示するためのviews.pyの設定
+* Django
+* プログラミング
+views.pyで設定
+from django.shortcuts import render, get_object_or_404
+
+def blog_manu(request, pk):
+
+    context = {
+        'blog': get_object_or_404(Blog, pk=pk)
+    }
+    return render(request, 'blogs/blog_manu.html', context)
+
+
+#太字の部分は独自に設定する
+
+
+
+プログラミング/Django/templateファイルの書き換え時の注意
+* Django
+* プログラミング
+django.core.exceptions.ImproperlyConfigured: っていうエラー解決
+django.core.exceptions.ImproperlyConfigured: Cannot import 'template02'. Check that 'reviews.apps.ReviewsConfig.name' is correct.
+あるとき勉強していてこういうエラーが出てきた。なんじゃこりゃと思って、１時間くらいファイルを見直していたら、ようやく見つけたのが、Djangoアプリケーションの中のapps.pyっていうファイル。今まで触れもしなかったんだけど、おそらくこのファイルの
+from django.apps import AppConfig
+
+
+class ReviewsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'reviews' # ここ！！
+のうちreviews(templateディレクトリの中にあるファイル)でなければいけないところを、多分ファイル名修正したときに、違う名前にしていて、それがそのまま変更されていなかったせいで発生したエラーだったみたい。
+結局、ファイル名を正したら問題は解決した。こういうミスがちょくちょくあるよね〜。
+
+
+
+プログラミング/Django/データベースの初期化
+* Django
+* プログラミング
+
+models.pyを変更した際に、データベースを初期化、再立ち上げを行う必要がある場合、
+
+１、db.sqlite3を削除（このファイルがデータベースになります。）
+２、migrationsディレクトリごと削除（これでマイグレーションファイルも全て削除できる。）
+３、makemigrations、migrateコマンドの実行
+（参考リンク：Djangoアプリケーションのモデル作成とデータベースへの反映）
+４、createsuperuserコマンドでDjango管理サイト用のユーザーを新たに作成
+（参考リンク：Django管理サイトを使うために必要なスーパーユーザーの作成方法）
+
+
+
+プログラミング/Django管理サイトを使うために必要なスーパーユーザーの作成方法
+* Django
+* プログラミング
+
+ターミナルを使って次のコマンドを入力
+yoshitaka_kai$ python manage.py createsuperuser
+指示に従ってユーザー名、メールアドレス、パスワード、確認用パスワードを入力
+ユーザー名 (leave blank to use 'xxxxxxxxx'):
+メールアドレス:
+Password:
+Password (again):
+正しく入力が完了すれば以下のように表示されます。
+Superuser created successfully.
+
+
+
+プログラミング/Djangoアプリ開発時のjsファイル設置場所について
+* Django
+* プログラミング
+
+Djangoで勉強していてふと思ったのは、jsファイルってどうやって配置するんだろうという疑問。調べるとさすが経験者の方のおかげでググればすぐに解決できました。
+
+どうすればいいのかというと、jsファイルをstaticファイル内に配置し、htmlテンプレートに以下のコードを入力。
+{% load static %}
+さらにhtmlテンプレートのスクリプト設置場所に以下のように入力。
+<script src="{% static 'スクリプトファイルをまとめているファイル名/スクリプトファイル名.js' %}"></script>
+これでjsファイルが適用されるようになるようですね。
+
+今回参考にしたサイトはこちら。
+
+
+
+プログラミング/Django/作成したモデルを管理サイトで操作するための処理と、データの表示を分かりやすくするための処理
+* Django
+* プログラミング
+
+
+管理サイトで作成したモデルを操作するための処理
+作成したアプリケーションファイルのadmin.pyに追加。
+from django.contrib import admin
+from .models import モデル名 # モデル名の例)Project
+
+admin.site.register(モデル名) #追加部分 モデル名の例)Project
+
+データの表示を分かりやすくするための処理
+アプリケーションファイルのmodels.pyに追加。
+class Diary(models.Model):
+    category = models.CharField('カテゴリ', max_length=255)
+    text = models.TextField('本文')
+    created_at = models.DateTimeField('作成日', default=timezone.now)
+
+    def __str__(self):
+        return
+
+    #追加部分
+    def __str__(self):
+        return 'カテゴリ:{} 本文:{}'.format(self.category, self.text[:10])
+
+
+
+プログラミング/Djangoアプリケーションのモデル作成とデータベースへの反映
+* Django
+* プログラミング
+
+
+※Djangoに付属のSQLiteを使用
+
+ターミナルでアプリケーションを作成。
+python manage.py startapp アプリケーション名
+
+setting.pyにアプリケーションを追加
+INSTALLED_APPS = [
+    'アプリケーション名.apps.アプリケーション名Config', #アプリケーションを追加　例)project.apps.ProjectConfig
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+アプリケーションのurls.pyを作成
+from django.urls import path
+from . import views
+
+app_name = 'アプリケーション名'
+
+urlpatterns = [
+
+]
+アプリケーションのmodels.pyの内容
+from django.db import models
+from django.utils import timezone
+
+class モデルクラス名(models.Model): #この部分がデータベースで管理するデータ
+    category = models.CharField('カテゴリ', max_length=255)
+    text = models.TextField('本文')
+    created_at = models.DateTimeField('作成日', default=timezone.now)
+
+モデルをデータベースに反映する。ターミナルで入力。
+python manage.py makemigrations アプリケーション名
+以下のように表示されればOK
+Migrations for 'アプリケーション名':
+  diaries/migrations/0001_initial.py
+    - Create model モデルクラス名
+
+次に以下をさらにターミナルで入力。
+python manage.py migrate
+
+以下のように表示されればOK
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, アプリケーション名, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying diaries.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+ここから先はDjango管理サイトでデータベースを操作していきます。
+
+
+
+プログラミング/Django/URLの逆引き
+* Django
+* プログラミング
+
+URLの逆引きによって作業効率を良くしたり、URLの入力間違いを防げるようになる。
+
+
+アプリファイルのurls.py
+urlpatterns = [
+    path('', views.top, name='top'),
+    path('resume/', views.resume, name='resume'),
+]
+
+テンプレートファイル 例）base.html
+<a href="{% url 'project_app:top' %}">TOP</a>
+<a href="{% url 'project_app:resume' %}">Resume</a>
+
+
+
+プログラミング/Django/共通テンプレート
+* Django
+* プログラミング
+
+DjangoのWebサイトを作るときによく使われる共通テンプレートについての説明です。
+
+base.html（ファイル名はなんでも良いけど、このファイル名がよく使われている。）
+全てのファイルで共通して使用するブロックを指定しています。
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta neme="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>Yoshitaka's Prpject App</header>
+<nav>
+    <a href="/">TOP</a>
+    <a href="/resume/">Resume</a>
+</nav>
+{% block content %}{% endblock %}
+
+</body>
+</html>
+
+top.html（これもファイル名は自由）
+共通テンプレートの中に埋め込むブロックを指定しています。
+{% extends 'project_app/base.html' %} #base.htmlを読み込む
+{% block title %}Yoshitaka's Prpject App{% endblock %}
+</head>
+<body>
+<header>Yoshitaka's Prpject App</header>
+
+{% block content %}
+<h1>{{ name }}のプロフィール</h1>　#nameはview.pyで指定
+<p>Python、Djangoが好きなプログラマー。</p>
+
+<h2>趣味</h2>
+<ul>
+    <li>盆栽</li>
+    <li>妻との雑談</li>
+    <li>散歩</li>
+</ul>
+{% endblock %}
+
+
+
+プログラミング/Django / settings.pyについてアプリケーション設定の際に気付いたこと
+* Django
+* プログラミング
+
+INSTALLED_APPS = [
+    'project_app.apps.ProjectAppConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+この部分の注意点として注目しておきたいのが、‘project_app.apps.ProjectAppConfig’,の部分。ファイルとして「＿」を使えるのに対し、Configの設定では「＿」が使えないということ。「＿」を加えて設定しても、プログラムが動作しないことから、入力の際は上記のようにする方が正常に動作確認できました。
+
+
+
+プログラミング/Djangoで開発するための初期設定(for mac)
+* Django
+* プログラミング
+
+
+Djangoをインストール
+pip3 install django
+インストールが完了したら、専用ディレクトリを作成。そのファイル内で、ターミナル使ってコマンド実行
+django-admin startproject プロジェクト名 . #プロジェクト名のあとは半角スペースを入れる
+Djangoの設定ファイルsettings.pyを修正
+LANGUAGE_CODE = 'ja'
+TIME_ZONE = 'Asia/Tokyo'
+専用デイレクトリ内でターミナルを使ってコマンド実行
+python3 manage.py runserver
+
+以下のように結果が表示されるので、ブラウザで確認。
+Django version 3.2.7, using settings 'プロジェクト名'
+Starting development server at http://127.0.0.1:8000/ #このURLをブラウザで入力
+Quit the server with CONTROL-C.
+￼
+
+この画面が表示されればOK！！
+
+Djangoアプリケーションの作成
+専用ディレクトリ内でターミナルを使ってコマンド実行
+python3 manage.py startapp アプリケーション名
+
+
+Djangoアプリケーションの登録
+先ほど作成したアプリケーションをsettings.pyに追加する。
+INSTALLED_APPS = [
+    'project_app.apps.ProjectAppConfig', #これを追加。project_appとProjectAappConfigの部分にアプリケーション名を加える。
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+settings.pyについて気付いたことを別記事に書いています。
+プログラミング/Django / settings.pyについてアプリケーション設定の際に気付いたこと
+
+この部分の注意点として注目しておきたいのが、‘project_app.apps.ProjectAppConfig’,の部分。ファイルとして「＿」を使えるのに対し、Configの設定では「＿」が使え … 続きを読む
+プログラミング/Django / settings.pyについてアプリケーション設定の際に気付いたこと
+
+
+
+プログラミング/MacPCでPostgreSQLへのログインで行き詰まった時に読み返すメモ
+* PostgreSQL
+* プログラミング
+Macを使ってターミナルで直接PostgreSQLをインストールすると、PC内のシステム環境設定の「ユーザとグループ」の中にサブアカウントとして
+
+PostgreSQL(postgres)
+
+というアカウントが作成されるという事実を知らずに、ターミナルで何度やってもログインが出来なくて困っていたところ、以下のサイトに行き着きようやく解決することが出来た。
+→http://db-study.com/archives/121
+
+postgresユーザーのパスワード設定(OSユーザー)をシステム環境設定で済ませておき、ターミナルで
+
+$ su - postgres
+
+と入力するとパスワードを求められるので、システム環境設定で設定したパスワードを入力すると、postgresユーザーに切り替わる。
+
+postgres$
+
+このように切り替わっていればユーザー切り替えに成功している。ここからはSQL言語を使ったプログラミング操作が可能になる。
+
+postgres$ psql
+
+と入力することでプロンプトが
+
+postgres=#
+
+に切り替わる。
+
+プロンプトを通常の表示に戻すときは、
+
+controキー + D
+
+をコマンド入力すると元に戻る。
+
+
+
+プログラミング/Djangoでアプリを作る時のメモ（for Mac）
+* Django
+* プログラミング
+
+MacでPostgreSQLとpdAdminを接続する方法
+
+１、pgAdminをインストールする
+https://www.pgadmin.org
+初期設定で設定するパスワードは、ターミナルで使用することがあるので忘れずにメモしておく。
+
+以下、ターミナルでの操作。
+
+２、Homebrewを使ってPostgreSQLをインストール
+$ brew install postgresql
+インストール出来ているかの確認は、
+$ psql --version
+
+３、PostgreSQLを起動する
+$ brew services start postgresql
+
+４、PostgreSQLへ接続（ログイン）
+$ psql -U postgres
+パスワードを求められるので、１、で設定したパスワードを入力する。
+ターミナルの表示が、
+postgres = #
+に変わる。
+５、データベースの作成
+ターミナルでPostgreSQLに接続した状態で、以下を入力する。
+CREATE DATABASE （データベース名）;
+成功すると次のように表示される。
+CREATE DATABASE
+作成したデータベースにログインするには、
+$ psql -U postgres -d （作成したデータベース名）
+ユーザーpostgresのパースワードを求められるので、１、で設定したパスワードを入力。
+成功すると次のように表示される。
+（作成したデータベース名）= #
+psqlの終了は、
+\q
+
+Python仮想環境作成
+ターミナルでコマンド入力。
+$ python3 -m venv (仮想環境名)
+Python仮想環境への入り方
+$ cd (仮想環境名)
+$ bin
+$ source activate
+(ここから作成したPython仮想環境名が入る。以下省略) $
+Python仮想環境からの抜け方
+$ deactivate
+
+Djangoプロジェクト作成
+ターミナルでコマンド入力
+$ cd (プロジェクトを作成するディレクトリ)
+$ cd bin
+$ source activate
+ここまでで仮想環境に入る。次にDjangoプロジェクトの作成。
+(ここから作成したPython仮想環境名が入る。以下省略)$ django-admin startproject (プロジェクト名)
+次にDjangoアプリケーションを作成する。
+$ python manage.py startproject (プロジェクト名)
+
+
+開発サーバー（runserver）の実行
+error: could not connect to server:
+このエラーに苦戦した。
+どうやらデータベースとの連携が上手く出来ていなかったようで、Pycharmでのコマンド設定によって解決できたので、記録しておこうと思う。
+今回データベースはPostgreSQLを使用。
+Environment Variablesという設定項目で、
+「DB_USER」と「DB_PASSWORD」
+この項目にPostgreSQLでの設定値を加えることで、上手く実行できた。
+ちなみに、スーパーユーザーでも、新規作成ユーザーでもできたが、念の為、新規ユーザーの作成方法を残そうと思う。
+参考URL https://www.dbonline.jp/ postgresql/role/index2.html
+
+
+スペルミスを探すコツ
+エラーが発生した時に、まずエラーコードにヒントが隠されていることがよくあるので、そこからチェックしていく。
+ヒントになる項目として、
+ファイル名、行数、コード名、タブ名、
+などが含まれたヒントは特に役立つヒントになる。
+そのヒントを頼りに、どの部分がエラーを起こしているのかを探っていくと、早い段階で修正できる。
+
+
+Seleniumを使ったテストの際のchromeDriverのpath設定
+今回の例では、
+class TestLogin(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver(executable_path='/Users/ユーザー名/保管場所/chromedriver')
+もし保管場所が分からない時は以下のURLを参考にする。 http://c-through.blogto.jp/archives/45171798.html
+
+AWS EC2インスタンス接続のためのconfigファイルの記入方法について
+参考書籍通りだとエラーが発生するので、追加メモを。
+host XXXXX
+  HostName     ＜パブリック DNS ＞
+  Port         XX
+  User         XXXXX
+  IdentityFile ~/.ssh/XXXXXX
+注意するのはパブリックDNSの部分。パブリック DNS (IPv4)の数値を入力すると接続成功する。
+また鍵ファイルのpemは保存時にtxtファイルで保存されているが、pemファイルに切り替えておいたほうがいい。
+
+
+
+
+
+
+
+
+
+
+
