@@ -1,5 +1,5 @@
 import heapq
-ef astar(edges, nodes, goal):
+
 def astar(edges, nodes, goal):
     dist = [float('inf')] * len(nodes)
     dist[0] = 0
