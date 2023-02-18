@@ -1,7 +1,4 @@
 import tkinter
-
-
-
 setting = tkinter.Tk()
 setting.title('Desktop App')
 setting.geometry('800x600')
