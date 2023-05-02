@@ -4,7 +4,7 @@ from tkinter import font as tkFont
 class TextEditor:
     def __init__(self, master):
         self.master = master
-        self.master.title("テキストエディター")
+        self.master.title("テキストエディター ©Yoshitaka Kai")
 
         # テキスト入力欄
         self.text = tk.Text(self.master, height=20, width=50, wrap=tk.WORD)
