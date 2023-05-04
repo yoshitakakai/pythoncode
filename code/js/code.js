@@ -1,14 +1,34 @@
-var height = prompt("身長はいくつ？");
-var ticket = prompt("持っているチケットは？");
-if (height >= 100) {
-    if (ticket === "premium") {
-        alert("プレミアムシートに乗車可能");
+function displayTrainType() {
+    var station = inputStation();
+    var type = getTrainType(station);
+    if (station >= 1 && station <= 3) {
+        alert("その駅には" + type + "の電車が停まります");
     } else {
-        alert("普通シートに乗車可能");
+        displayTrainType();
     }
-
-}else if (height >= 90){
-    alert("付き添いありで乗車可能");
-} else {
-    alert("乗車不可");
 }
+function inputStation() {
+    var station = prompt("行き先を選んで\n1.A 2.B 3.C");
+    station = Number(station);
+    return station;
+}
+
+function getTrainType(station) {
+    var type;
+    switch (station) {
+        case 1:
+            type = "快速";
+            break;
+        case 2:
+            type = "快速と急行";
+            break;
+        case 3:
+            type = "急行";
+            break;
+        default:
+            alert("入力が正しくありません")
+    }
+    return type;
+}
+
+displayTrainType();
